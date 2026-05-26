@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Nicole Paige | West Africa Operations Manager at PG Mall</title>
+    <style>
+        /* Light theme (default) */
+        :root {
+            --bg-gradient-start: #fef9f0;
+            --bg-gradient-end: #f6efe3;
+            --card-bg: white;
+            --card-border: #ffe0c0;
+            --text-primary: #3e2a1f;
+            --text-secondary: #7a5a44;
+            --header-bg: rgba(255,248,235,0.85);
+            --toc-bg: rgba(255,245,230,0.95);
+            --toc-item-bg: #faeedc;
+            --toc-item-hover: #f5e2ca;
+            --badge-bg: #f9e4ce;
+            --badge-color: #aa6f3c;
+            --detail-bg: white;
+            --link-color: #b45f2b;
+            --btn-bg: linear-gradient(135deg, #d98c2b, #b45f2b);
+            --info-bg: #fef3e4;
+            --warning-bg: #fff0e0;
+            --salary-card-bg: #fff6eb;
+            --team-card-bg: #fffaf3;
+            --success-bg: #e9f5e6;
+        }
+        body.dark {
+            --bg-gradient-start: #2a241e;
+            --bg-gradient-end: #1e1915;
+            --card-bg: #3e332a;
+            --card-border: #5e4b3a;
+            --text-primary: #f0e2d4;
+            --text-secondary: #cdb89f;
+            --header-bg: rgba(40,35,30,0.9);
+            --toc-bg: rgba(45,38,32,0.97);
+            --toc-item-bg: #5e4b3a;
+            --toc-item-hover: #7a624b;
+            --badge-bg: #5e4b3a;
+            --badge-color: #f5cba0;
+            --detail-bg: #3e332a;
+            --link-color: #f5bc84;
+            --btn-bg: linear-gradient(135deg, #b45f2b, #8f471f);
+            --info-bg: #4d3f30;
+            --warning-bg: #56422e;
+            --salary-card-bg: #4a3b2e;
+            --team-card-bg: #45372a;
+            --success-bg: #3b5532;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            padding: 20px;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.2s;
+            color: var(--text-primary);
+        }
+        .wrapper { max-width: 800px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 56px;
+            padding: 20px 20px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 20px -8px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            position: relative;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c47a3a, #9b592c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .header p {
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 40px;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+            color: var(--text-primary);
+        }
+        .toc {
+            background: var(--toc-bg);
+            border-radius: 32px;
+            padding: 20px 22px;
+            margin-bottom: 28px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+        }
+        .toggle-toc-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #d98c2b, #b45f2b);
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .toggle-toc-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #e9a253, #c4712e);
+        }
+        .toc-content {
+            display: none;
+            margin-top: 20px;
+        }
+        .toc-content.visible {
+            display: block;
+        }
+        .toc-header h3 {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #d98c2b;
+            padding-left: 14px;
+            margin-bottom: 16px;
+        }
+        .toc-category {
+            margin-bottom: 12px;
+        }
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 0;
+            font-weight: 600;
+        }
+        .category-title {
+            background: var(--toc-item-bg);
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--badge-color);
+        }
+        .collapse-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+        .toc-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 8px 0 12px 0;
+        }
+        .toc-grid.collapsed { display: none; }
+        .toc-item {
+            background: var(--toc-item-bg);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--badge-color);
+            border: 1px solid var(--card-border);
+            font-weight: 500;
+        }
+        .card-list { display: flex; flex-direction: column; gap: 18px; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 32px;
+            padding: 20px 24px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+            border: 1px solid var(--card-border);
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+        .card:active { transform: scale(0.98); }
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #d98c2b, #b45f2b);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .card:hover::after { opacity: 1; }
+        .card h3 { font-size: 1.3rem; margin-bottom: 8px; color: var(--text-primary); }
+        .card p { color: var(--text-secondary); margin-bottom: 12px; font-size: 0.9rem; }
+        .badge {
+            display: inline-block;
+            background: var(--badge-bg);
+            color: var(--badge-color);
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .detail-view {
+            background: var(--detail-bg);
+            border-radius: 40px;
+            padding: 32px 28px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.12);
+            border: 1px solid var(--card-border);
+        }
+        .detail-title { font-size: 1.7rem; font-weight: 700; border-left: 6px solid #d98c2b; padding-left: 20px; margin-bottom: 12px; }
+        .detail-meta { color: var(--text-secondary); font-size: 0.8rem; border-bottom: 1px solid var(--card-border); padding-bottom: 14px; margin-bottom: 28px; }
+        .detail-text { font-size: 1rem; line-height: 1.6; }
+        .detail-text p { margin-bottom: 1rem; }
+        .detail-text ul, .detail-text ol { margin: 0.8rem 0 1rem 1.6rem; }
+        .contact-link {
+            display: inline-block;
+            background: var(--toc-item-bg);
+            padding: 8px 18px;
+            border-radius: 60px;
+            text-decoration: none;
+            color: var(--link-color);
+            margin: 6px 8px 0 0;
+            border: 1px solid var(--card-border);
+        }
+        .back-btn {
+            background: var(--btn-bg);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 80px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 35px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .hidden { display: none; }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid var(--card-border);
+        }
+        .salary-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--salary-card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .salary-table th, .salary-table td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .salary-table th {
+            background: var(--toc-item-bg);
+            font-weight: 600;
+        }
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .two-columns > div {
+            flex: 1;
+            background: var(--team-card-bg);
+            border-radius: 28px;
+            padding: 18px 20px;
+            border: 1px solid var(--card-border);
+        }
+        .mini-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .mini-table td, .mini-table th {
+            padding: 8px 6px;
+            text-align: left;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .info-box, .warning-box, .success-box {
+            padding: 12px 16px;
+            border-radius: 20px;
+            margin: 1.2em 0;
+        }
+        .info-box { background: var(--info-bg); border-left: 4px solid #d98c2b; }
+        .warning-box { background: var(--warning-bg); border-left: 4px solid #f0a500; }
+        .success-box { background: var(--success-bg); border-left: 4px solid #2a946b; }
+        .guide-img {
+            max-width: 100%;
+            border-radius: 16px;
+            margin: 15px 0;
+            border: 1px solid var(--card-border);
+            display: block;
+        }
+        .go-top {
+            position: fixed;
+            bottom: 130px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: var(--btn-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: 0.2s;
+        }
+        .go-top.show { opacity: 1; visibility: visible; }
+        @media (max-width: 550px) {
+            body { padding: 14px; }
+            .go-top { bottom: 120px; right: 16px; width: 44px; height: 44px; font-size: 20px; }
+            .card h3 { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div id="homeContainer">
+        <div class="header">
+            <h1>💻 Nicole Paige · West Africa Operations Manager at PG Mall</h1>
+            <p>From data-driven marketer to empowering local teams — building trust through smart systems. 🇺🇸</p>
+            <div class="theme-toggle" id="themeToggle">🌓 Dark mode</div>
+        </div>
+
+        <div class="toc" id="tableOfContents">
+            <button id="toggleTocBtn" class="toggle-toc-btn">📂 Show guide menu</button>
+            <div id="tocContent" class="toc-content">
+                <div class="toc-header"><h3>📖 Quick navigation</h3></div>
+                <div id="tocContainer"></div>
+            </div>
+        </div>
+
+        <div id="cardsArea" class="card-list"></div>
+        <footer>👇 Tap any card to read my story & detailed guides</footer>
+    </div>
+    <div id="detailContainer" class="hidden">
+        <div class="detail-view">
+            <div id="detailContent"></div>
+            <button id="backHomeBtn" class="back-btn">← Back to main menu</button>
+        </div>
+        <footer>✨ Data tells you what happens, but people make it better. Let's build something great together.</footer>
+    </div>
+</div>
+<div id="goTopBtn" class="go-top">↑</div>
+
+<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/05/25/14/20260525144538-5W7SZTMB.js" defer></script>
+
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const isDark = document.body.classList.contains('dark');
+        themeToggle.textContent = isDark ? '☀️ Light mode' : '🌓 Dark mode';
+    });
+
+    const goTopBtn = document.getElementById('goTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) goTopBtn.classList.add('show');
+        else goTopBtn.classList.remove('show');
+    });
+    goTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    let savedScrollPosition = 0;
+
+    // Base raw image URL (using your commit hash)
+    const RAW_BASE = "https://raw.githubusercontent.com/PGshop/Nicole/8ae806086457eb19a29f05b3efe2570af4cafe11/images";
+
+    // ========== ALL ARTICLES – Nicole's NEW voice & experience ==========
+    const ARTICLES = {
+        "nicole-story": {
+            title: "👩‍💻 Nicole Paige – My Journey",
+            meta: "West Africa Operations Manager | From Denver to Dakar, building systems that empower",
+            content: `
+                <div class="detail-text">
+                    <p><strong>📌 Who am I and why am I here to help you?</strong></p>
+                    <p><strong>📍 Birth & childhood</strong><br>
+                    I was born in Denver, Colorado, in a modest family. My father is a firefighter, my mother a nurse. I'm the second child, with an older sister and a younger brother. Since childhood, I've been curious about technology and business — I loved taking apart old computers and selling handmade soaps at school fairs. I'm outgoing, organized, and always looking for smarter ways to get things done.</p>
+                    
+                    <p><strong>🎓 Education</strong><br>
+                    I attended East High School in Denver, where I participated in DECA (high school business competition) and won a state-level award. Later I joined the University of Colorado Boulder, graduating in 2020 with a Bachelor's degree in Marketing and Information Systems (with honors). During college, I also spent a semester as an exchange student at Copenhagen Business School in Denmark, which taught me how to adapt to different work cultures.</p>
+                    
+                    <p><strong>💼 Professional experience</strong><br>
+                    <strong>2020-2022</strong>: I joined a digital marketing startup in Denver as a Growth Marketing Specialist, focusing on social media ads and data analytics. I helped the company reduce customer acquisition costs by 35%.<br>
+                    <strong>2022-2023</strong>: I moved to a global e-commerce solutions company as a Market Expansion Analyst, researching user behavior in Latin America. This experience opened my eyes to the huge impact e-commerce can have on ordinary people in emerging markets.<br>
+                    <strong>2023-2024</strong>: I was hired by the parent company of PG Mall (Colorado, USA) as a West Africa Operations Manager. While Grace leads market strategy, I focus on building localized operational workflows, training online staff, and optimizing platform experience.</p>
+                    
+                    <p><strong>🌍 Why Senegal?</strong><br>
+                    When the company decided to make Senegal the first stop for the French-speaking African market, I volunteered to join. I don't speak French, but I excel at solving complex problems with data and systematic thinking. I believe that for a platform to truly serve local people, beyond quality goods, it needs simple and reliable operational processes. Senegal's young and vibrant digital environment convinced me it can become a model for e-commerce in Africa.</p>
+                    
+                    <p><strong>💡 My motto is:</strong><br>
+                    "Data tells you what happened, but only people make it better. I hope that through our efforts, every click and every transaction becomes simple and trustworthy."</p>
+                </div>
+            `
+        },
+        "how-i-earn": {
+            title: "💰 How I earn daily (levels & salary)",
+            meta: "Beginner to Level 3, real income table (XOF) — I'm now Operations Manager",
+            content: `
+                <p><strong>📊 PG Mall salary structure (what I personally climbed)</strong></p>
+                <table class="salary-table">
+                    <thead><tr><th>Level</th><th>Deposit (XOF)</th><th>Tasks/day</th><th>Daily commission</th><th>Monthly salary</th><th>Yearly salary</th></tr></thead>
+                    <tbody>
+                        <tr><td>Beginner</td><td>16,800</td><td>5</td><td>350</td><td>10,850</td><td>127,750</td></tr>
+                        <tr><td>Level 1</td><td>32,000</td><td>5</td><td>1,000</td><td>31,000</td><td>365,000</td></tr>
+                        <tr><td>Level 2</td><td>85,000</td><td>10</td><td>2,800</td><td>86,800</td><td>1,022,000</td></tr>
+                        <tr><td>Level 3</td><td>240,000</td><td>15</td><td>8,700</td><td>269,700</td><td>3,175,500</td></tr>
+                    </tbody>
+                </table>
+                <p>🎯 I started as Beginner and now I'm <strong>West Africa Operations Manager</strong> — responsible for optimizing task flows and training team leads. The path is clear: work consistently, follow the system, and you can grow too.</p>
+                <div class="info-box"><p><strong>❓ Why deposit? It's your working capital, not a fee.</strong><br>
+                The deposit stays on your personal account, fully refundable after 1 year or upon upgrading. It's used to simulate real product purchases; 80% of merchant fees become YOUR commission. No hidden charges, no risk.</p></div>
+            `
+        },
+        "withdrawal-rules": {
+            title: "🏦 Withdrawals & US tax (25% explained)",
+            meta: "Monday–Friday, 2–96h arrival, 25% IRS withholding",
+            content: `
+                <ul><li><strong>Withdrawal days:</strong> Monday to Friday (request any time).</li>
+                <li><strong>Processing:</strong> 2 to 96 hours depending on volume.</li>
+                <li><strong>Minimum withdrawal:</strong> No strict minimum, practical ~1,000 XOF.</li>
+                <li><strong>Maximum:</strong> Unlimited.</li></ul>
+                <div class="info-box"><p><strong>📌 Why 25% withholding tax?</strong><br>PG Mall is a US company (Colorado ID 20181650293). Under IRS rules, non-resident workers have a mandatory 30% withholding. Thanks to international treaties, PG applies a reduced 25% rate. This money goes directly to the US Treasury — PG does not keep it. You'll receive a withholding certificate for each payout, which may help you claim foreign tax credits in your country.</p>
+                <p>💡 You can lower effective tax by building a team (see "Extra Income" card) — team subsidies can reduce the real withholding down to 20%.</p></div>
+            `
+        },
+        "topup-steps": {
+            title: "🔁 Steps to deposit & start working",
+            meta: "4 easy steps to fund your account",
+            content: `<ol><li>Contact me (Nicole) on Telegram to get the official PG Mall bank details or USDT address.</li><li>Transfer the exact deposit amount according to your desired level.</li><li>Take a screenshot of the transaction (reference ID).</li><li>Send the screenshot to me. Funds are credited within 3–15 minutes.</li></ol><div class="warning-box"><p>⚠️ Never send money to any unknown person or unofficial account. Always double-check with me.</p></div>`
+        },
+        "order-process": {
+            title: "✅ How to complete daily tasks",
+            meta: "Simulated purchase workflow + address setup guide",
+            content: `
+                <ol><li>Log in to your PG Mall dashboard.</li><li>Go to "Task Center" → "Product list".</li><li>Choose a product matching your level.</li><li>Click "Buy" or "Accept task".</li><li>The amount is temporarily frozen (your deposit).</li><li>Wait for the countdown (validation period).</li><li>After completion, the frozen amount + commission is credited back.</li><li>Repeat daily up to your level limit.</li></ol>
+                <div class="info-box"><p>💡 Always add a valid shipping address (your own). It's part of the simulation — no physical goods are shipped. Below is a guide to set your address correctly:</p></div>
+                <img class="guide-img" src="${RAW_BASE}/address_guide.jpg" alt="Address setup guide" onerror="this.style.display='none'">
+            `
+        },
+        "extra-earnings": {
+            title: "💡 Extra income: referrals & team rewards",
+            meta: "0.2% rebate from downline, tax subsidies from team size",
+            content: `
+                <p><strong>👥 Passive income through referrals</strong><br>
+                When you invite someone and they become active (Level 1+), you earn a permanent 0.2% commission on every task they complete. It's small but adds up — I have 23 active members now, and that passive income covers my grocery bill.</p>
+                <div class="two-columns"><div>
+                    <h4>💰 Team size → Tax subsidy</h4>
+                    <table class="mini-table"><tr><th>Team size</th><th>Subsidy</th><th>Effective withholding</th></tr>
+                    <tr><td>1–9</td><td>10%</td><td>22.5%</td></tr>
+                    <tr><td>10–19</td><td>15%</td><td>21.25%</td></tr>
+                    <tr><td>20+</td><td>20%</td><td>20%</td></tr>
+                    </table>
+                    <p>Larger team = less tax + more referral income. Win-win.</p>
+                </div></div>
+                <p>🎁 You also get a cash bonus per new active member (promotional amount varies). I'll share the current bonus when you contact me.</p>
+            `
+        },
+        "credit-score": {
+            title: "📊 PG Loyalty Credit — unlock extra benefits",
+            meta: "Start with 100 points, earn more by inviting, avoid penalties",
+            content: `
+                <p><strong>🎯 Credit score affects your tax subsidy</strong><br>Every member starts at 100 points. Higher credit = better tax reduction (stacks with team subsidy).</p>
+                <table class="mini-table"><tr><th>Credit Score</th><th>Extra subsidy</th></tr>
+                <tr><td>100–104</td><td>10%</td></tr>
+                <tr><td>105–119</td><td>15%</td></tr>
+                <tr><td>120+</td><td>20% (max)</td></tr>
+                </table>
+                <p><strong>➕ Gain points:</strong> +1 per new active referral, +10 for 10 referrals.<br>
+                <strong>⚠️ Lose points:</strong> spreading false rumors, ignoring manager messages, missing tasks.</p>
+                <div class="warning-box"><p>⛔ Credit below 95: removed from official groups. Below 70: account frozen. Below 60: permanent closure. Stay active and honest!</p></div>
+            `
+        },
+        "why-pg-safe": {
+            title: "🔒 Why I trust PG Mall (legal & insured)",
+            meta: "US registered, 8+ years, refundable deposits, insured funds",
+            content: `
+                <ul><li><strong>Registered in Colorado, USA</strong> — ID 20181650293, active since 2018.</li>
+                <li><strong>Over 2 million active workers</strong> worldwide, more than 8 years in operation.</li>
+                <li><strong>Deposits fully refundable</strong> after 1 year or upon upgrading.</li>
+                <li><strong>Third-party insurance</strong> covering all user funds.</li>
+                <li><strong>No investment risk</strong> — you’re a worker, not an investor.</li></ul>
+                <p>📜 Below is PG's Good Standing certificate from Colorado Secretary of State:</p>
+                <img class="guide-img" src="${RAW_BASE}/good_standing_cert.jpg" alt="PG Good Standing Certificate" onerror="this.style.display='none'">
+                <p>You can verify with Entity ID <strong>20181650293</strong> on <a href="https://www.colorados.gov/biz/CertificateSearchCriteria.do" target="_blank">Colorado.gov</a>.</p>
+            `
+        },
+        "success-proof": {
+            title: "🏆 My payslips & real testimonial",
+            meta: "Nicole's earnings proof, real screenshots — Operations Manager role",
+            content: `
+                <div class="success-box"><p><strong>📸 My earnings snapshot as Operations Manager (July 2025)</strong><br>
+                Daily commission + team bonuses average ~5,200 XOF per day → over 150,000 XOF monthly. This allows me to support my family and invest in professional growth.</p>
+                <p>⭐ "Data-driven decisions and consistent effort pay off. PG Mall gave me the platform to lead." — Nicole</p></div>
+                <img class="guide-img" src="${RAW_BASE}/salary_1.jpg" alt="Salary proof 1" onerror="this.style.display='none'">
+                <img class="guide-img" src="${RAW_BASE}/salary_2.jpg" alt="Salary proof 2" onerror="this.style.display='none'">
+                <div class="success-box"><p><strong>👥 Testimonial from my team member Amadou (Dakar):</strong><br>
+                "Nicole's training modules and clear instructions made me confident in using PG Mall. Today I'm Level 2 and I've referred five friends. Thank you!"</p></div>
+                <p>💬 I share live payment screenshots and operational tips daily on my Telegram channel. Join me.</p>
+            `
+        },
+        "scam-warning": {
+            title: "⚠️ Stay safe — Scam alert!",
+            meta: "Protect yourself from fake PG sites",
+            content: `<div class="warning-box"><ul><li>❌ Never send money to any personal account — only official PG Mall deposit details (provided by Nicole).</li>
+            <li>❌ Beware of "instant profit" schemes promising unrealistic returns.</li>
+            <li>❌ Never share your PG login password with anyone.</li>
+            <li>✅ Always verify information with me directly on Telegram.</li>
+            <li>✅ PG will never ask for extra fees beyond your refundable deposit.</li></ul>
+            <p>📢 If someone contacts you claiming to be "PG support" but asking for weird payments, block them and message me immediately.</p></div>`
+        },
+        "invite-friends": {
+            title: "👥 Invite friends & build your team",
+            meta: "Get your personal referral link, earn passive income + guide image",
+            content: `
+                <p><strong>🔗 How to get your invitation link</strong><br>In your PG dashboard, click "Referral Team" → copy your unique link or code. Share it on WhatsApp, Telegram, Facebook. When someone registers using your link and makes their first deposit, you receive a cash bonus + permanent 0.2% of their task commissions.</p>
+                <img class="guide-img" src="${RAW_BASE}/invite_link_guide.jpg" alt="Invitation link guide" onerror="this.style.display='none'">
+                <div class="info-box"><p>💡 My advice: Start with people you trust. Show them your own consistency, and they'll follow. I'll personally help you onboard your first referrals.</p></div>
+                <p>📈 The more active members you bring, the less tax you pay (see extra income card) and the more stable your passive income becomes.</p>
+            `
+        },
+        "contact-nicole": {
+            title: "📞 Contact me — Nicole Paige",
+            meta: "Telegram support, one-on-one guidance",
+            content: `<p><strong>I answer every message personally.</strong><br>Whether you need help with registration, deposit, withdrawals, or just want to understand how to maximize your earnings — I'm here.</p>
+            <p><a href="https://t.me/Nicole67888" class="contact-link" target="_blank" rel="noopener noreferrer">📱 Message me on Telegram: @Nicole67888</a>
+            <a href="https://reel-shrt.com" class="contact-link" target="_blank" rel="noopener noreferrer">🛍️ Official PG Mall Shop</a></p>
+            <p>🕒 Working hours: 9 AM – 9 PM (Senegal time / US MT). I reply usually within 2 hours. Let's build your path to financial freedom together.</p>
+            <div class="success-box"><p>💡 "Data tells you what happened, but only people make it better. I'm here to help you become one of those people." — Nicole</p></div>`
+        }
+    };
+
+    // Card categories and order
+    const CARD_CATEGORIES = [
+        { name: "💻 My journey", items: ["nicole-story"] },
+        { name: "💰 Earnings & rules", items: ["how-i-earn", "withdrawal-rules", "topup-steps"] },
+        { name: "📋 Work guides", items: ["order-process", "extra-earnings", "credit-score"] },
+        { name: "🔐 Trust & safety", items: ["why-pg-safe", "scam-warning"] },
+        { name: "👥 Build your team", items: ["invite-friends"] },
+        { name: "🏆 Proof & success", items: ["success-proof"] },
+        { name: "📞 Get help", items: ["contact-nicole"] }
+    ];
+
+    const FLAT_CARDS = [];
+    for (const cat of CARD_CATEGORIES) {
+        for (const id of cat.items) {
+            FLAT_CARDS.push({ id, title: ARTICLES[id].title, desc: ARTICLES[id].meta });
+        }
+    }
+
+    const homeContainer = document.getElementById('homeContainer');
+    const detailContainer = document.getElementById('detailContainer');
+    const cardsArea = document.getElementById('cardsArea');
+    const detailContentDiv = document.getElementById('detailContent');
+    const backBtn = document.getElementById('backHomeBtn');
+    const tocContainer = document.getElementById('tocContainer');
+    const toggleTocBtn = document.getElementById('toggleTocBtn');
+    const tocContentDiv = document.getElementById('tocContent');
+
+    function renderCards() {
+        cardsArea.innerHTML = '';
+        for (const card of FLAT_CARDS) {
+            const article = ARTICLES[card.id];
+            const cardElem = document.createElement('div');
+            cardElem.className = 'card';
+            cardElem.innerHTML = `<h3>${card.title}</h3><p>${article?.meta || card.desc}</p><div class="badge">📘 Read more →</div>`;
+            cardElem.addEventListener('click', (function(id) { return () => showDetail(id); })(card.id));
+            cardsArea.appendChild(cardElem);
+        }
+        generateTOC();
+    }
+
+    function generateTOC() {
+        tocContainer.innerHTML = '';
+        for (const cat of CARD_CATEGORIES) {
+            const catDiv = document.createElement('div');
+            catDiv.className = 'toc-category';
+            const header = document.createElement('div');
+            header.className = 'category-header';
+            const titleSpan = document.createElement('span');
+            titleSpan.className = 'category-title';
+            titleSpan.innerText = cat.name;
+            const iconSpan = document.createElement('span');
+            iconSpan.className = 'collapse-icon';
+            iconSpan.innerText = '▶';
+            header.appendChild(titleSpan);
+            header.appendChild(iconSpan);
+            const grid = document.createElement('div');
+            grid.className = 'toc-grid collapsed';
+            for (const id of cat.items) {
+                const item = document.createElement('div');
+                item.className = 'toc-item';
+                item.textContent = ARTICLES[id].title;
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const targetCard = document.getElementById(`card-${id}`);
+                    if (targetCard) targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+                grid.appendChild(item);
+            }
+            catDiv.appendChild(header);
+            catDiv.appendChild(grid);
+            header.addEventListener('click', () => {
+                const isCollapsed = grid.classList.toggle('collapsed');
+                iconSpan.innerText = isCollapsed ? '▶' : '▼';
+            });
+            tocContainer.appendChild(catDiv);
+        }
+    }
+
+    let guideVisible = false;
+    toggleTocBtn.addEventListener('click', () => {
+        guideVisible = !guideVisible;
+        if (guideVisible) {
+            tocContentDiv.classList.add('visible');
+            toggleTocBtn.textContent = '📁 Hide guide';
+        } else {
+            tocContentDiv.classList.remove('visible');
+            toggleTocBtn.textContent = '📂 Show guide menu';
+        }
+    });
+
+    function showDetail(articleId) {
+        savedScrollPosition = window.scrollY;
+        const article = ARTICLES[articleId];
+        if (!article) return;
+        detailContentDiv.innerHTML = `<div class="detail-title">${article.title}</div><div class="detail-meta">📌 ${article.meta}</div><div class="detail-text">${article.content}</div>`;
+        homeContainer.classList.add('hidden');
+        detailContainer.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (history.pushState) history.pushState({ view: 'detail', id: articleId }, '', `#${articleId}`);
+    }
+
+    function backToHome() {
+        detailContainer.classList.add('hidden');
+        homeContainer.classList.remove('hidden');
+        setTimeout(() => window.scrollTo({ top: savedScrollPosition, behavior: 'instant' }), 10);
+        if (location.hash) history.replaceState(null, '', ' ');
+    }
+
+    window.addEventListener('popstate', (e) => {
+        if (!detailContainer.classList.contains('hidden')) backToHome();
+        else if (location.hash && location.hash.length > 1) showDetail(location.hash.slice(1));
+    });
+    backBtn.addEventListener('click', backToHome);
+    renderCards();
+    if (location.hash && location.hash.length > 1) showDetail(location.hash.slice(1));
+</script>
+</body>
+</html>
